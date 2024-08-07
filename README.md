@@ -3,20 +3,6 @@
 This coding challenge is a collection of _Python_ jobs that are supposed to extract, transform and load data.
 These jobs are using _PySpark_ to process larger volumes of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
 
-## Gearing Up for the Pairing Session
-
-**✅ Goals**
-
-1. **Get a working environment**  
-   Either local ([local](#local-setup), or using [gitpod](#gitpod-setup))
-2. **Get a high-level understanding of the code and test dataset structure**
-3. Have your preferred text editor or IDE setup and ready to go.
-
-**❌ Non-Goals**
-
-- solving the exercises / writing code
-  > ⚠️ The exercises will be given at the time of interview, and solved by pairing with the interviewer.
-
 ### Local Setup
 
 > 💡 If you don't manage to run the local setup or you have restrictions to install software in your laptop, use the [gitpod](#gitpod-setup) one
@@ -85,19 +71,15 @@ poetry run pylint data_transformations tests
 All commands are passing?  
 You are good to go!
 
-> ⚠️ do not try to solve the exercises ahead of the interview
-
 You are allowed to customize your environment (having the test in vscode directly for example): feel free to spend the time making this comfortable for you. This is not an expectation.
 
 ## Jobs
 
-There are two exercises in this repo: Word Count, and Citibike.
+This repo contains a "Word count" exercise.
 
-Currently, these exist as skeletons, and have some **initial test cases** which are defined but some are skipped.
+Currently, it exists as a skeleton, and it has some **initial test cases** which are defined but some are skipped.
 
 The following section provides context over them.
-
-> ⚠️ do not try to solve the exercises ahead of the interview
 
 ### Code walk
 
