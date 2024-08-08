@@ -3,9 +3,21 @@
 This coding challenge is a collection of _Python_ jobs that are supposed to extract, transform and load data.
 These jobs are using _PySpark_ to process larger volumes of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
 
+### Gitpod setup (Recommended)
+
+We recommend the environment setup using
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/paulobarbosa-ciandt/data-engineering-test)
+
+There's an initialize script setup that takes around 3 minutes to complete. Once you use paste this repository link in new Workspace, please wait until the packages are installed. After everything is setup, select Poetry's environment by clicking on thumbs up icon and navigate to Testing tab and hit refresh icon to discover tests.
+
+Note that you can use gitpod's web interface or setup [ssh to Gitpod](https://www.gitpod.io/docs/references/ides-and-editors/vscode#connecting-to-vs-code-desktop) so that you can use VS Code from local to remote to Gitpod
+
+Remember to stop the vm and restart it just before the interview.
+
 ### Local Setup
 
-> 💡 If you don't manage to run the local setup or you have restrictions to install software in your laptop, use the [gitpod](#gitpod-setup) one
+> If you don't manage to run the gitpod setup, use the local one.
 
 #### Pre-requisites
 
@@ -28,18 +40,6 @@ Follow instructions on the [Windows official page](https://learn.microsoft.com/e
 ```bash
 poetry install
 ```
-
-### Gitpod setup
-
-Alternatively, you can setup the environment using
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/techops-recsys-lateral-hiring/dataengineer-transformations-python)
-
-There's an initialize script setup that takes around 3 minutes to complete. Once you use paste this repository link in new Workspace, please wait until the packages are installed. After everything is setup, select Poetry's environment by clicking on thumbs up icon and navigate to Testing tab and hit refresh icon to discover tests.
-
-Note that you can use gitpod's web interface or setup [ssh to Gitpod](https://www.gitpod.io/docs/references/ides-and-editors/vscode#connecting-to-vs-code-desktop) so that you can use VS Code from local to remote to Gitpod
-
-Remember to stop the vm and restart it just before the interview.
 
 ### Verify setup
 
