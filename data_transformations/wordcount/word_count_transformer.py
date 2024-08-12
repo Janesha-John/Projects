@@ -23,7 +23,7 @@ def count_words(spark: SparkSession, input_text: str) -> DataFrame:
     words_df = input_df.select(
         explode(
             split(
-                regexp_replace(lower(col("value")), "[^a-zA-Z0-9\\s]", ""),  # Remove punctuation
+                regexp_replace(lower(col("value")), "[^a-zA-Z0-9\\s']", " "),  # Remove punctuation and fill it with space
                 "\\s+"  # Split by whitespace
             )
         ).alias("word")
