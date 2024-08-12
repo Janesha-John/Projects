@@ -16,11 +16,8 @@ python = "~3.11"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.8.2"
-pytest = "^6.2.4"
-mypy = "^0.910"
-
-[tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
+mypy = "^1.11.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -19,6 +19,9 @@ def test_counting_words(spark):
     
     word_count_df = count_words(spark, data)
 
+    print("Word Count DataFrame :")
+    word_count_df.show()
+
     expected_data = [
         ("a", 1), ("advice", 1), ("and", 1), ("been", 1), ("father", 1), ("gave", 1), ("great", 1),
         ("i've", 1), ("in", 1), ("man", 1), ("me", 1), ("more", 1), ("my", 2), ("some", 1), ("that", 1), 
@@ -29,11 +32,12 @@ def test_counting_words(spark):
     sorted_word_count_df = word_count_df.orderBy("word")
     sorted_expected_df = expected_df.orderBy("word")
     
-    print("Word Count DataFrame Schema:")
-    word_count_df.printSchema()
+    #sorted_word_count_df.show()
+    #sorted_expected_df.show()
+    
 
-    print("Expected DataFrame Schema:")
-    expected_df.printSchema()
+    #print("Expected DataFrame Schema:")
+    #expected_df.printSchema()
     
     # Collect the sorted DataFrames
     word_count_list = sorted_word_count_df.collect()

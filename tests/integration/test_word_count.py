@@ -259,5 +259,18 @@ def test_should_tokenize_words_and_count_them(SPARK) -> None:
         ["younger", 1],
     ]
     expected = SPARK.createDataFrame(expected_data, ["word", "count"])
+    
+    sorted_word_count_df = actual.orderBy("word")
+    sorted_expected_df = expected.orderBy("word")
+    print("sorted_word_count_df :")
+    sorted_word_count_df.show()
 
-    assert actual.collect() == expected.collect()
+    print("sorted_expected_df :")
+    sorted_expected_df.show()
+
+    word_count_list = sorted_word_count_df.collect()
+    expected_list = sorted_expected_df.collect()
+
+    assert word_count_list == expected_list
+
+    #assert actual.collect() == expected.collect()

@@ -27,7 +27,7 @@ def count_words(spark: SparkSession, input_text: str) -> DataFrame:
                 "\\s+"  # Split by whitespace
             )
         ).alias("word")
-    )
+    ).filter(col("word") != "")  # Filter out empty strings
      # Group by word and count occurrences
     word_count_df = words_df.groupBy("word").count()
     
