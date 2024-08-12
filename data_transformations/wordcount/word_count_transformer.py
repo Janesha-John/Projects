@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql.functions import explode, split, col, lower, regexp_replace
 from pyspark.sql.types import Row
 import logging
 
@@ -19,7 +20,20 @@ def count_words(spark: SparkSession, input_text: str) -> DataFrame:
     
     # Create a DataFrame from the input text
     input_df = spark.createDataFrame([Row(value=input_text)])
+    words_df = input_df.select(
+        explode(
+            split(
+                regexp_replace(lower(col("value")), "[^a-zA-Z0-9\\s]", ""),  # Remove punctuation
+                "\\s+"  # Split by whitespace
+            )
+        ).alias("word")
+    )
+     # Group by word and count occurrences
+    word_count_df = words_df.groupBy("word").count()
     
+    # .withColumnRenamed("count", "count")
+
+    return word_count_df
     # The candidate needs to implement the text processing steps here:
     # 1. Remove punctuation and convert text to lowercase.
     # 2. Split text into individual words.
