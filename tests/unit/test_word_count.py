@@ -1,24 +1,20 @@
-import pytest
 import logging
+import pytest
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, explode, lower, split, regexp_replace, trim
 from pyspark.sql.types import StructType, StructField, StringType
-
 from data_transformations.wordcount.word_count_transformer import count_words
 
-
-print("Hello")
 logging.basicConfig(level=logging.DEBUG)
+
 # Sample Spark session fixture
 @pytest.fixture(scope="session")
-def spark():
+def spark() -> SparkSession:
     return SparkSession.builder.master("local[1]").appName("UnitTest").getOrCreate()
 
-def test_counting_words(spark):
+def test_counting_words(spark: SparkSession) -> None:
     data = "In my younger and more vulnerable years my father--a great man--gave me some advice that I've been"
-    
     word_count_df = count_words(spark, data)
-
     print("Word Count DataFrame :")
     word_count_df.show()
 
@@ -28,49 +24,30 @@ def test_counting_words(spark):
         ("vulnerable", 1), ("years", 1), ("younger", 1)
     ]
     expected_df = spark.createDataFrame(expected_data, ["word", "count"])
-    
     sorted_word_count_df = word_count_df.orderBy("word")
     sorted_expected_df = expected_df.orderBy("word")
-    
-    #sorted_word_count_df.show()
-    #sorted_expected_df.show()
-    
-
-    #print("Expected DataFrame Schema:")
-    #expected_df.printSchema()
     
     # Collect the sorted DataFrames
     word_count_list = sorted_word_count_df.collect()
     expected_list = sorted_expected_df.collect()
-# Print the lengths of the lists to verify they were collected
-    logging.debug(f"Number of rows in actual DataFrame: {len(word_count_list)}")
-    logging.debug(f"Number of rows in expected DataFrame: {len(expected_list)}")
-
+    
     # Print the lengths of the lists to verify they were collected
-   # print(f"Number of rows in actual DataFrame: {len(word_count_list)}")
+    logging.debug("Number of rows in actual DataFrame: %d", len(word_count_list))
+    logging.debug("Number of rows in expected DataFrame: %d", len(expected_list))
+
+# Print the lengths of the lists to verify they were collected
+   # print("f"Number of rows in actual DataFrame: {len(word_count_list)}")"
     #print(f"Number of rows in expected DataFrame: {len(expected_list)}")
 
-    # Compare the collected lists
+# Compare the collected lists
     assert word_count_list == expected_list
-     # Print the content of the actual DataFrame
+
+# Print the content of the actual DataFrame
     logging.debug("Actual DataFrame:")
     for row in word_count_list:
         logging.debug(row.asDict())
 
-    # Print the content of the expected DataFrame
+# Print the content of the expected DataFrame
     logging.debug("Expected DataFrame:")
     for row in expected_list:
         logging.debug(row.asDict())
-     
-     # Print the content of the actual DataFrame
-    # print("Actual DataFrame:")
-    # for row in word_count_list:
-    #     print(row.asDict())
-
-    # Print the content of the expected DataFrame
-    # print("Expected DataFrame:")
-    # for row in expected_list:
-    #     print(row.asDict())
-
-
-    # assert word_count_df.collect() == expected_df.collect()

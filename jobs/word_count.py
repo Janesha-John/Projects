@@ -1,8 +1,6 @@
 import logging
-
 import sys
 from pyspark.sql import SparkSession
-
 from data_transformations.wordcount import word_count_transformer
 
 LOG_FILENAME = 'project.log'

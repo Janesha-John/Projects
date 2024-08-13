@@ -1,25 +1,19 @@
 import os
 import tempfile
 from typing import Tuple, List
-
 import pytest
-
+from pyspark.sql import SparkSession
 from data_transformations.wordcount import word_count_transformer
-
 
 def _get_file_paths(input_file_lines: List[str]) -> Tuple[str, str]:
     base_path = tempfile.mkdtemp()
-
-    input_text_path = "%s%sinput.txt" % (base_path, os.path.sep)
+    input_text_path = f"{base_path}{os.path.sep}input.txt"
     with open(input_text_path, 'w') as input_file:
         input_file.writelines(input_file_lines)
-
-    output_path = "%s%soutput" % (base_path, os.path.sep)
+    output_path = f"{base_path}{os.path.sep}output"
     return input_text_path, output_path
 
-
-# @pytest.mark.skip
-def test_should_tokenize_words_and_count_them(SPARK) -> None:
+def test_should_tokenize_words_and_count_them(SPARK: SparkSession) -> None:
     lines = [
         "In my younger and more vulnerable years my father gave me some advice that I've been "
         "turning over in my mind ever since. \"Whenever you feel like criticising any one,\""
@@ -45,9 +39,7 @@ def test_should_tokenize_words_and_count_them(SPARK) -> None:
         "So we beat on, boats against the current, borne back ceaselessly into the past.      "
     ]
     input_file_path, output_path = _get_file_paths(lines)
-
     word_count_transformer.run(SPARK, input_file_path, output_path)
-
     actual = SPARK.read.csv(output_path, header=True, inferSchema=True)
     expected_data = [
         ["a", 4],
@@ -259,12 +251,10 @@ def test_should_tokenize_words_and_count_them(SPARK) -> None:
         ["younger", 1],
     ]
     expected = SPARK.createDataFrame(expected_data, ["word", "count"])
-    
     sorted_word_count_df = actual.orderBy("word")
     sorted_expected_df = expected.orderBy("word")
     print("sorted_word_count_df :")
     sorted_word_count_df.show()
-
     print("sorted_expected_df :")
     sorted_expected_df.show()
 
@@ -272,5 +262,3 @@ def test_should_tokenize_words_and_count_them(SPARK) -> None:
     expected_list = sorted_expected_df.collect()
 
     assert word_count_list == expected_list
-
-    #assert actual.collect() == expected.collect()
